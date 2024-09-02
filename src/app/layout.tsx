@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "Regista Football Quizzes",
   description:
     "Compete against friends, improve your understanding of football history, tactics, and players, and see how well you know the sport!",
+  icons: {
+    icon: "/icon.ico",
+  },
 };
 
 export default function RootLayout({

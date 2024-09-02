@@ -1,0 +1,5 @@
+blue-300
+cyan-600
+sky-950
+yellow-500
+amber-500

@@ -1,3 +1,15 @@
+import FeedBackForm from "@/components/feedBackForm";
+import Header from "@/components/UI/header";
+
 export default function Home() {
-  return <h2>hii</h2>;
+  return (
+    <main>
+      <section>
+        <Header />
+      </section>
+      <section>
+        <FeedBackForm />
+      </section>
+    </main>
+  );
 }
