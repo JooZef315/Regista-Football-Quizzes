@@ -3,11 +3,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Cairo } from "next/font/google";
 import Navbar from "@/components/UI/navbar";
 import Footer from "@/components/UI/footer";
 
-// const inter = Inter({ subsets: ["latin"] });
+const cairo = Cairo({
+  subsets: ["arabic", "latin"], // Specify the subset
+  weight: ["300", "400"], // Specify weights if needed
+});
 
 export const metadata: Metadata = {
   title: "Regista Football Quizzes",
@@ -25,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="auto">
-      <body>
+      <body className={`scroll-smooth ${cairo.className}`}>
         <SpeedInsights />
         <ToastContainer />
         <Navbar />
