@@ -18,7 +18,7 @@ export default function Tabs({ tabs }: PropsType) {
   return (
     <>
       <section
-        dir="auto"
+        dir="rtl"
         className="w-full flex justify-evenly items-center gap-8 flex-wrap my-3"
       >
         {tabs.map((tab, index) => (

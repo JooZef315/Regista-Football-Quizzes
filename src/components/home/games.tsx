@@ -2,6 +2,8 @@ import { AiOutlineTable } from "react-icons/ai";
 import { MdQuestionMark } from "react-icons/md";
 import { PiPasswordDuotone } from "react-icons/pi";
 import Tabs from "./tabs";
+import { Suspense } from "react";
+import LoadingSpinner from "../UI/loadingSpinner";
 
 export default function Games() {
   const tabs = [
@@ -54,11 +56,13 @@ export default function Games() {
     <main className="min-h-[calc(100vh-74px)] w-full md:w-4/5 mx-auto flex flex-col justify-center items-center gap-3 p-6">
       <h1
         dir="rtl"
-        className="text-center text-blue-600 font-bold text-2xl mb-5"
+        className="text-center text-amber-500 font-bold text-3xl mb-5"
       >
         ألعب دلوقتي!
       </h1>
-      <Tabs tabs={tabs} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Tabs tabs={tabs} />
+      </Suspense>
     </main>
   );
 }
