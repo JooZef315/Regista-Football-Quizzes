@@ -5,16 +5,10 @@ import { IoPlayCircle } from "react-icons/io5";
 export default function Header() {
   return (
     <header className="min-h-[calc(100vh-74px)] flex flex-col md:flex-row justify-center items-center gap-4 p-6 pb-10 text-white bg-blue-600 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')]">
-      <Image
-        alt="header image"
-        src={"/header.png"}
-        width={420}
-        height={420}
-        // className="hidden md:inline-block"
-      />
+      <Image alt="header image" src={"/header.png"} width={420} height={420} />
       <div className="flex flex-col gap-4 justify-center items-center">
         <h1 className="text-center text-4xl font-bold">
-          <span className="bg-white text-blue-600 rounded-2xl px-4 shadow-md">
+          <span className="block lg:inline py-2 lg:py-0 bg-white text-blue-600 rounded-2xl px-4 shadow-md">
             Regista
           </span>{" "}
           Football Quizzes

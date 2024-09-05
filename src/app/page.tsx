@@ -1,4 +1,5 @@
-import FeedBackForm from "@/components/feedBackForm";
+import FeedBackForm from "@/components/home/feedBackForm";
+import Games from "@/components/home/games";
 import Header from "@/components/UI/header";
 
 export default function Home() {
@@ -7,7 +8,9 @@ export default function Home() {
       <section>
         <Header />
       </section>
-      <section id="games">Games</section>
+      <section id="games">
+        <Games />
+      </section>
       <section id="feedback">
         <FeedBackForm />
       </section>
