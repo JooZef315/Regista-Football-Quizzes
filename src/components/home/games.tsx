@@ -56,7 +56,7 @@ export default function Games() {
     <main className="min-h-[calc(100vh-74px)] w-full md:w-4/5 mx-auto flex flex-col justify-center items-center gap-3 p-6">
       <h1
         dir="rtl"
-        className="text-center text-amber-500 font-bold text-3xl mb-5"
+        className="text-center text-amber-500 font-bold text-3xl my-5"
       >
         ألعب دلوقتي!
       </h1>

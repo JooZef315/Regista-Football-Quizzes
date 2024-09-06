@@ -46,7 +46,7 @@ export default function Tabs({ tabs }: PropsType) {
           {tabs[activeTab].content}
           <Link
             href={tabs[activeTab].link}
-            aria-label="go to risk game"
+            aria-label={`go to ${tabs[activeTab].label} game`}
             dir="auto"
             className="flex gap-2 justify-center items-center text-center bg-white text-yellow-500 hover:bg-yellow-50 px-5 py-3 shadow-lg rounded-xl"
           >
