@@ -18,7 +18,6 @@ export default function Timer({ initialSeconds }: { initialSeconds: number }) {
       return () => clearInterval(interval);
     } else {
       setTimeUp();
-      console.log("finish!!");
     }
   }, [seconds, setTimeUp]);
 

@@ -6,9 +6,13 @@ type UsersStore = {
   singleName: string;
   team1Name: string;
   team2Name: string;
+  winnerModal: boolean;
+  playAgainModal: boolean;
   setTeamsNames(teams: { team1: string; team2: string }): void;
   setSingleName(single: { single: string }): void;
   setTimeUp(): void;
+  toggleWinnerModal(): void;
+  togglePlayAgainModal(): void;
 };
 
 export const useUsersStore = create<UsersStore>((set, get) => ({
@@ -35,5 +39,13 @@ export const useUsersStore = create<UsersStore>((set, get) => ({
   },
   setTimeUp() {
     set({ timeIsUp: true });
+  },
+  winnerModal: false,
+  toggleWinnerModal() {
+    set((state) => ({ winnerModal: !state.winnerModal }));
+  },
+  playAgainModal: false,
+  togglePlayAgainModal() {
+    set((state) => ({ playAgainModal: !state.playAgainModal }));
   },
 }));
