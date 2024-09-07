@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+type PasswordCategory = "محلي" | "عالمي" | "mix";
 type Turn = "team1" | "team2";
 
 type Clue = {
@@ -9,12 +10,14 @@ type Clue = {
 
 type PasswordStore = {
   passwordNames: string[];
+  passwordCategory: PasswordCategory;
   winner: Turn | "draw";
   score1: number;
   score2: number;
   turn: Turn;
   clues: Clue[];
   setPasswordNames(names: string[]): void;
+  setPasswordCategory(category: { category: PasswordCategory }): void;
   addToScore1(): void;
   addToScore2(): void;
   addClue(clue: Clue): void;
@@ -23,6 +26,11 @@ type PasswordStore = {
 
 export const usePasswordStore = create<PasswordStore>((set, get) => ({
   passwordNames: [],
+  passwordCategory:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("passwordCategory") || "{}")
+          ?.category || "mix"
+      : "mix",
   winner: "draw",
   score1: 0,
   score2: 0,
@@ -30,6 +38,10 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
   clues: [],
   setPasswordNames(names) {
     set({ passwordNames: names });
+  },
+  setPasswordCategory(category) {
+    localStorage.setItem("passwordCategory", JSON.stringify(category));
+    set({ passwordCategory: category.category });
   },
   addToScore1() {
     if (get().score1 == 4) {

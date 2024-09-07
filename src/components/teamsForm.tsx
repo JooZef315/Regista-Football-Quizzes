@@ -1,5 +1,6 @@
 "use client";
 
+import { usePasswordStore } from "@/store/passwordStore";
 import { useUsersStore } from "@/store/usersStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,6 +12,7 @@ type TeamsFormValues = {
   team1: string;
   team2: string;
   singleName: string;
+  passwordCategory: "محلي" | "عالمي" | "mix";
 };
 
 export default function TeamsForm({
@@ -23,13 +25,16 @@ export default function TeamsForm({
   const [loading, setLoading] = useState(false);
   const [singleMode, setSingleMode] = useState(false);
 
-  const timeIsUp = useUsersStore((state) => state.timeIsUp);
-
   const team1Name = useUsersStore((state) => state.team1Name);
   const team2Name = useUsersStore((state) => state.team2Name);
   const singleName = useUsersStore((state) => state.singleName);
   const setTeamsNames = useUsersStore((state) => state.setTeamsNames);
   const setSingleName = useUsersStore((state) => state.setSingleName);
+
+  const passwordCategory = usePasswordStore((state) => state.passwordCategory);
+  const setPasswordCategory = usePasswordStore(
+    (state) => state.setPasswordCategory
+  );
 
   const router = useRouter();
 
@@ -42,6 +47,8 @@ export default function TeamsForm({
       team1: typeof window !== "undefined" ? team1Name : "team 1",
       team2: typeof window !== "undefined" ? team2Name : "team 2",
       singleName: typeof window !== "undefined" ? singleName : "user",
+      passwordCategory:
+        typeof window !== "undefined" ? passwordCategory : "mix",
     },
   });
 
@@ -52,6 +59,9 @@ export default function TeamsForm({
         setTeamsNames({ team1: data.team1, team2: data.team2 });
       } else {
         setSingleName({ single: data.singleName });
+      }
+      if (window.location.pathname == "/password/info") {
+        setPasswordCategory({ category: data.passwordCategory });
       }
       router.push(link);
     } catch (error) {
@@ -119,6 +129,26 @@ export default function TeamsForm({
               )}
             </div>
           </>
+        )}
+        {window.location.pathname == "/password/info" && (
+          <div className="w-full">
+            <select
+              {...register("passwordCategory")}
+              className="w-full py-3 px-5 text-amber-500 ring-1 ring-amber-500 focus:ring-amber-500   placeholder:text-amber-500 focus:outline-none"
+            >
+              <option value={"أختار نوع اللاعبين"} disabled>
+                أختار نوع اللاعبين
+              </option>
+              <option value={"mix"}>mix</option>
+              <option value="محلي">محلي</option>
+              <option value="عالمي">عالمي</option>
+            </select>
+            {errors.passwordCategory && (
+              <p className="text-red-700 p-1">
+                {errors.passwordCategory.message}
+              </p>
+            )}
+          </div>
         )}
         {singleMode && (
           <div className="w-full">

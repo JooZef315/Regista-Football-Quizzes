@@ -1,13 +1,16 @@
 "use client";
 
 import { useUsersStore } from "@/store/usersStore";
+import { useRouter } from "next/navigation";
 
 export default function PlayAgainModal() {
   const toggleModal = useUsersStore((state) => state.togglePlayAgainModal);
+  const router = useRouter();
 
   const handleClick = () => {
     toggleModal();
-    window.location.reload();
+    const currentPath = window.location.pathname;
+    router.push(`/${currentPath}/info`);
   };
 
   return (

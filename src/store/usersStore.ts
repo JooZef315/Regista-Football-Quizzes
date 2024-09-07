@@ -19,11 +19,17 @@ export const useUsersStore = create<UsersStore>((set, get) => ({
   timeIsUp: false,
   isSingle: false,
   singleName:
-    JSON.parse(localStorage.getItem("single") || "{}")?.single || "user",
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("single") || "{}")?.single || "user"
+      : "user",
   team1Name:
-    JSON.parse(localStorage.getItem("teams") || "{}")?.team1 || "team 1",
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("teams") || "{}")?.team1 || "team 1"
+      : "team 1",
   team2Name:
-    JSON.parse(localStorage.getItem("teams") || "{}")?.team2 || "team 2",
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("teams") || "{}")?.team2 || "team 2"
+      : "team 2",
   setTeamsNames(teams) {
     localStorage.setItem("teams", JSON.stringify(teams));
     set({
