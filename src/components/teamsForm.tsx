@@ -1,6 +1,7 @@
 "use client";
 
 import { useUsersStore } from "@/store/usersStore";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoPlayCircle } from "react-icons/io5";
@@ -12,15 +13,25 @@ type TeamsFormValues = {
   singleName: string;
 };
 
-export default function TeamsForm({ allowSingle }: { allowSingle: boolean }) {
+export default function TeamsForm({
+  allowSingle,
+  link,
+}: {
+  allowSingle: boolean;
+  link: string;
+}) {
   const [loading, setLoading] = useState(false);
   const [singleMode, setSingleMode] = useState(false);
+
+  const timeIsUp = useUsersStore((state) => state.timeIsUp);
 
   const team1Name = useUsersStore((state) => state.team1Name);
   const team2Name = useUsersStore((state) => state.team2Name);
   const singleName = useUsersStore((state) => state.singleName);
   const setTeamsNames = useUsersStore((state) => state.setTeamsNames);
   const setSingleName = useUsersStore((state) => state.setSingleName);
+
+  const router = useRouter();
 
   const {
     register,
@@ -42,6 +53,7 @@ export default function TeamsForm({ allowSingle }: { allowSingle: boolean }) {
       } else {
         setSingleName({ single: data.singleName });
       }
+      router.push(link);
     } catch (error) {
       toast.error("Invalid names/names, please try again.");
     }

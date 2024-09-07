@@ -12,6 +12,7 @@ export default function PasswordInfo() {
           اللاعب
         </li>
         <li>لازم الفريق يقول clue حتى لو الوقت خلص.</li>
+        <li>لو فريق عرف اللاعب صح من أول clue، الفريق ياخد نقطتين.</li>
         <li>
           لو فريق قال اسم شخص / نادي / بلد / تاريخ / رقم تيشرت / clue من كلمتين،
           الفريق التاني من حقه يقول 2 clues في الدور بتاعه
@@ -28,7 +29,7 @@ export default function PasswordInfo() {
     <main className="min-h-[calc(100vh-74px)] w-full flex flex-col items-center gap-4">
       <Info data={data} />
       <section className="w-full">
-        <TeamsForm allowSingle={false} />
+        <TeamsForm allowSingle={false} link="/password" />
       </section>
     </main>
   );
