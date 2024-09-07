@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { usePasswordStore } from "./passwordStore";
 
 type UsersStore = {
   timeIsUp: boolean;
@@ -6,13 +7,10 @@ type UsersStore = {
   singleName: string;
   team1Name: string;
   team2Name: string;
-  winnerModal: boolean;
-  playAgainModal: boolean;
   setTeamsNames(teams: { team1: string; team2: string }): void;
   setSingleName(single: { single: string }): void;
-  setTimeUp(): void;
-  toggleWinnerModal(): void;
-  togglePlayAgainModal(): void;
+  setTimeUp(val: boolean): void;
+  resetGames(): void;
 };
 
 export const useUsersStore = create<UsersStore>((set, get) => ({
@@ -43,15 +41,14 @@ export const useUsersStore = create<UsersStore>((set, get) => ({
     localStorage.setItem("single", JSON.stringify(single));
     set({ singleName: single.single, isSingle: true, timeIsUp: false });
   },
-  setTimeUp() {
+  setTimeUp(val) {
+    if (val) {
+      usePasswordStore.getState().toggleTurn();
+    }
+    set({ timeIsUp: val });
+  },
+  resetGames() {
+    usePasswordStore.getState().reset();
     set({ timeIsUp: true });
-  },
-  winnerModal: false,
-  toggleWinnerModal() {
-    set((state) => ({ winnerModal: !state.winnerModal }));
-  },
-  playAgainModal: false,
-  togglePlayAgainModal() {
-    set((state) => ({ playAgainModal: !state.playAgainModal }));
   },
 }));

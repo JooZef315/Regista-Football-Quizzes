@@ -1,9 +1,26 @@
 "use client";
 
+import { usePasswordStore } from "@/store/passwordStore";
 import { useUsersStore } from "@/store/usersStore";
+import { useRouter } from "next/navigation";
 
-export default function WinnerModal({ name }: { name: string }) {
-  const toggleModal = useUsersStore((state) => state.toggleWinnerModal);
+export default function WinnerModal() {
+  const team1Name = useUsersStore((state) => state.team1Name);
+  const team2Name = useUsersStore((state) => state.team2Name);
+  const winner = usePasswordStore((state) => state.winner);
+  const resetGames = useUsersStore((state) => state.resetGames);
+
+  const router = useRouter();
+
+  const handlePlayAgain = () => {
+    resetGames();
+    router.refresh();
+  };
+
+  const handleBackToHome = () => {
+    resetGames();
+    router.push("/#games");
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
@@ -12,13 +29,25 @@ export default function WinnerModal({ name }: { name: string }) {
           🎉 We have a Winner! 🎉
         </h2>
         <p className="text-center mb-6">
-          Congratulations to <span className="font-bold">{name}</span>!
+          Congratulations to{" "}
+          <span className="font-bold">
+            {winner == "team1" ? team1Name : team2Name}
+          </span>
+          !
         </p>
         <button
-          onClick={() => toggleModal()}
-          className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          dir="rtl"
+          onClick={() => handlePlayAgain()}
+          className="my-1 w-3/4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
-          Close
+          إلعب تاني!{" "}
+        </button>
+        <button
+          dir="rtl"
+          onClick={() => handleBackToHome()}
+          className="my-1 w-3/4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          العودة للصفحة الرئيسية
         </button>
       </div>
     </div>
