@@ -33,7 +33,11 @@ export default function PasswordInfo() {
     <main className="min-h-[calc(100vh-74px)] w-full flex flex-col items-center gap-4">
       <Info data={data} />
       <section className="w-full">
-        <TeamsForm allowSingle={false} link="/password" />
+        <TeamsForm
+          allowSingle={false}
+          link="/password"
+          currentPath="/password/info"
+        />
       </section>
     </main>
   );

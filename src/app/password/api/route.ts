@@ -11,7 +11,6 @@ export async function POST(request: Request) {
     existedList: PasswordsList;
     category: PasswordCategory;
   } = await request.json();
-  console.log(existedList, category);
   const passwords = await getPasswordList(existedList, category);
   return NextResponse.json({ data: passwords });
 }

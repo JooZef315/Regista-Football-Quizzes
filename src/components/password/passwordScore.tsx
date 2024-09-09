@@ -64,7 +64,7 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
           +
         </button>
       </div>
-      {winner !== "draw" && <WinnerModal />}
+      {winner !== "draw" && <WinnerModal currentPath={"/password"} />}
     </>
   );
 }

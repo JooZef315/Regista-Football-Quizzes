@@ -28,7 +28,11 @@ export default function WhoAmIInfo() {
     <main className="min-h-[calc(100vh-74px)] w-full flex flex-col items-center gap-4">
       <Info data={data} />
       <section className="w-full">
-        <TeamsForm allowSingle={true} link="/whoAmI" />
+        <TeamsForm
+          allowSingle={true}
+          link="/whoAmI"
+          currentPath="/whoAmI/info"
+        />
       </section>
     </main>
   );

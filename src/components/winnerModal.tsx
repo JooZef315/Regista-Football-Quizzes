@@ -4,7 +4,7 @@ import { usePasswordStore } from "@/store/passwordStore";
 import { useUsersStore } from "@/store/usersStore";
 import { useRouter } from "next/navigation";
 
-export default function WinnerModal() {
+export default function WinnerModal({ currentPath }: { currentPath: string }) {
   const team1Name = useUsersStore((state) => state.team1Name);
   const team2Name = useUsersStore((state) => state.team2Name);
   const winner = usePasswordStore((state) => state.winner);
@@ -14,7 +14,6 @@ export default function WinnerModal() {
 
   const handlePlayAgain = () => {
     resetGames();
-    const currentPath = window.location.pathname;
     router.push(`${currentPath}/info`);
   };
 

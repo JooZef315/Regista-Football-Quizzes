@@ -33,7 +33,7 @@ export default function RiskInfo() {
     <main className="min-h-[calc(100vh-74px)] w-full flex flex-col items-center gap-4">
       <Info data={data} />
       <section className="w-full">
-        <TeamsForm allowSingle={true} link="/risk" />
+        <TeamsForm allowSingle={true} link="/risk" currentPath="/risk/info" />
       </section>
     </main>
   );

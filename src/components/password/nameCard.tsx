@@ -26,7 +26,6 @@ export default function NameCard() {
   }, [list]);
 
   useEffect(() => {
-    console.log(counter);
     setPlayer(list[counter]);
   }, [counter]);
 

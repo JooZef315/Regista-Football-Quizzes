@@ -32,11 +32,7 @@ type PasswordStore = {
 export const usePasswordStore = create<PasswordStore>((set, get) => ({
   passwordsList: [],
   localPasswordsList: [],
-  passwordCategory:
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("passwordCategory") || "{}")
-          ?.category || "mix"
-      : "mix",
+  passwordCategory: "mix",
   winner: "draw",
   score1: 0,
   score2: 0,

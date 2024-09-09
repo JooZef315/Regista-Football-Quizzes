@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useGetPasswords } from "@/hooks/useGetPasswords";
 import { usePasswordStore } from "@/store/passwordStore";
 import { useUsersStore } from "@/store/usersStore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoPlayCircle } from "react-icons/io5";
 import { toast } from "react-toastify";
@@ -16,13 +17,17 @@ type TeamsFormValues = {
   passwordCategory: "محلي" | "عالمي" | "mix";
 };
 
+type PropsType = {
+  allowSingle: boolean;
+  link: string;
+  currentPath: string;
+};
+
 export default function TeamsForm({
   allowSingle,
   link,
-}: {
-  allowSingle: boolean;
-  link: string;
-}) {
+  currentPath,
+}: PropsType) {
   const [loading, setLoading] = useState(false);
   const [singleMode, setSingleMode] = useState(false);
 
@@ -42,13 +47,27 @@ export default function TeamsForm({
     formState: { errors },
   } = useForm<TeamsFormValues>({
     defaultValues: {
-      team1: window && typeof window !== "undefined" ? team1Name : "team 1",
-      team2: window && typeof window !== "undefined" ? team2Name : "team 2",
-      singleName: window && typeof window !== "undefined" ? singleName : "user",
-      passwordCategory:
-        window && typeof window !== "undefined" ? passwordCategory : "mix",
+      team1: team1Name,
+      team2: team2Name,
+      singleName: singleName,
+      passwordCategory: passwordCategory,
     },
   });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setTeamsNames({
+        team1:
+          JSON.parse(localStorage.getItem("teams") || "{}")?.team1 || "team 1",
+        team2:
+          JSON.parse(localStorage.getItem("teams") || "{}")?.team2 || "team 2",
+      });
+      setSingleName({
+        single:
+          JSON.parse(localStorage.getItem("single") || "{}")?.single || "user",
+      });
+    }
+  }, []);
 
   const onSubmit = async (data: TeamsFormValues) => {
     setLoading(true);
@@ -58,7 +77,7 @@ export default function TeamsForm({
       } else {
         setSingleName({ single: data.singleName });
       }
-      if (window.location.pathname == "/password/info") {
+      if (currentPath == "/password/info") {
         await getPasswords(data.passwordCategory);
       }
       router.push(link);
@@ -128,7 +147,7 @@ export default function TeamsForm({
             </div>
           </>
         )}
-        {window.location.pathname == "/password/info" && (
+        {currentPath == "/password/info" && (
           <div className="w-full">
             <select
               {...register("passwordCategory")}
