@@ -42,11 +42,11 @@ export default function TeamsForm({
     formState: { errors },
   } = useForm<TeamsFormValues>({
     defaultValues: {
-      team1: typeof window !== "undefined" ? team1Name : "team 1",
-      team2: typeof window !== "undefined" ? team2Name : "team 2",
-      singleName: typeof window !== "undefined" ? singleName : "user",
+      team1: window && typeof window !== "undefined" ? team1Name : "team 1",
+      team2: window && typeof window !== "undefined" ? team2Name : "team 2",
+      singleName: window && typeof window !== "undefined" ? singleName : "user",
       passwordCategory:
-        typeof window !== "undefined" ? passwordCategory : "mix",
+        window && typeof window !== "undefined" ? passwordCategory : "mix",
     },
   });
 

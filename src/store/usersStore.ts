@@ -17,15 +17,15 @@ export const useUsersStore = create<UsersStore>((set, get) => ({
   timeIsUp: false,
   isSingle: false,
   singleName:
-    typeof window !== "undefined"
+    window && typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("single") || "{}")?.single || "user"
       : "user",
   team1Name:
-    typeof window !== "undefined"
+    window && typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("teams") || "{}")?.team1 || "team 1"
       : "team 1",
   team2Name:
-    typeof window !== "undefined"
+    window && typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("teams") || "{}")?.team2 || "team 2"
       : "team 2",
   setTeamsNames(teams) {
