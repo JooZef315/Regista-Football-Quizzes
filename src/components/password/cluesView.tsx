@@ -4,7 +4,6 @@ import { usePasswordStore } from "@/store/passwordStore";
 
 export default function CluesView() {
   const clues = usePasswordStore((state) => state.clues);
-  console.log(clues);
   return (
     <div className="max-h-[calc(50vh)] w-11/12 md:w-1/2 mx-auto bg-blue-50 text-sky-950 shadow-lg rounded-lg my-2 flex justify-center items-center p-4">
       <ul className="w-full h-full flex flex-col justify-center overflow-y-scroll p-6">

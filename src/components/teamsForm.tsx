@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetPasswords } from "@/hooks/useGetPasswords";
 import { usePasswordStore } from "@/store/passwordStore";
 import { useUsersStore } from "@/store/usersStore";
 import { useRouter } from "next/navigation";
@@ -30,12 +31,9 @@ export default function TeamsForm({
   const singleName = useUsersStore((state) => state.singleName);
   const setTeamsNames = useUsersStore((state) => state.setTeamsNames);
   const setSingleName = useUsersStore((state) => state.setSingleName);
-
   const passwordCategory = usePasswordStore((state) => state.passwordCategory);
-  const setPasswordCategory = usePasswordStore(
-    (state) => state.setPasswordCategory
-  );
 
+  const getPasswords = useGetPasswords();
   const router = useRouter();
 
   const {
@@ -61,7 +59,7 @@ export default function TeamsForm({
         setSingleName({ single: data.singleName });
       }
       if (window.location.pathname == "/password/info") {
-        setPasswordCategory({ category: data.passwordCategory });
+        await getPasswords(data.passwordCategory);
       }
       router.push(link);
     } catch (error) {

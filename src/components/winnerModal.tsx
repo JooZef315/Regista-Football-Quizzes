@@ -14,7 +14,8 @@ export default function WinnerModal() {
 
   const handlePlayAgain = () => {
     resetGames();
-    router.refresh();
+    const currentPath = window.location.pathname;
+    router.push(`${currentPath}/info`);
   };
 
   const handleBackToHome = () => {

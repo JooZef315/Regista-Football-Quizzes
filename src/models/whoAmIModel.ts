@@ -1,5 +1,4 @@
 import mongoose, { Model } from "mongoose";
-import { TWhoAmI } from "./types";
 
 const WhoAmISchema = new mongoose.Schema(
   {
@@ -38,6 +37,8 @@ const WhoAmISchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+export type TWhoAmI = mongoose.InferSchemaType<typeof WhoAmISchema>;
 
 const WhoAmI: Model<TWhoAmI> =
   mongoose.models.WhoAmI || mongoose.model<TWhoAmI>("WhoAmI", WhoAmISchema);

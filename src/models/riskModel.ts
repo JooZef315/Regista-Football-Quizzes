@@ -1,4 +1,3 @@
-import { TRisk } from "./types";
 import mongoose, { Model } from "mongoose";
 
 const RiskQuestionSchema = new mongoose.Schema({
@@ -88,6 +87,8 @@ const RiskSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+export type TRisk = mongoose.InferSchemaType<typeof RiskSchema>;
 
 const Risk: Model<TRisk> =
   mongoose.models.Risk || mongoose.model<TRisk>("Risk", RiskSchema);

@@ -1,4 +1,4 @@
-import { TPassword } from "./types";
+// import { TPassword } from "./types";
 import mongoose, { Model } from "mongoose";
 
 const PasswordSchema = new mongoose.Schema({
@@ -17,6 +17,8 @@ const PasswordSchema = new mongoose.Schema({
     required: [true, "Please add category"],
   },
 });
+
+export type TPassword = mongoose.InferSchemaType<typeof PasswordSchema>;
 
 const Password: Model<TPassword> =
   mongoose.models.Password ||

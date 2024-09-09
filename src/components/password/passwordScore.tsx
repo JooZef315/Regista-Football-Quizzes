@@ -19,7 +19,6 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
   const score2 = usePasswordStore((state) => state.score2);
   const addToScore1 = usePasswordStore((state) => state.addToScore1);
   const addToScore2 = usePasswordStore((state) => state.addToScore2);
-  const toggleTurn = usePasswordStore((state) => state.toggleTurn);
 
   // Only set the team names after hydration
   useEffect(() => {

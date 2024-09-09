@@ -1,5 +1,4 @@
 import mongoose, { Model } from "mongoose";
-import { TFeedBack } from "./types";
 
 const FeedBackSchema = new mongoose.Schema(
   {
@@ -16,6 +15,8 @@ const FeedBackSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+export type TFeedBack = mongoose.InferSchemaType<typeof FeedBackSchema>;
 
 const FeedBack: Model<TFeedBack> =
   mongoose.models.FeedBack ||
