@@ -1,4 +1,5 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import type { Metadata } from "next";
@@ -29,11 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en" dir="auto">
       <body className={`scroll-smooth ${cairo.className}`}>
-        <SpeedInsights />
         <ToastContainer />
         <Navbar />
         {children}
         <Footer />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
