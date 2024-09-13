@@ -7,6 +7,7 @@ type Turn = "team1" | "team2";
 
 type PasswordStore = {
   passwordsName: string;
+  deserveDouble: boolean;
   localPasswordsList: string[];
   passwordCategory: PasswordCategory;
   winner: Turn | "draw";
@@ -15,6 +16,7 @@ type PasswordStore = {
   turn: Turn;
   showName: boolean;
   setPasswordsName(names: PasswordsItem): void;
+  setDeserveDouble(val: boolean): void;
   setPasswordCategory(category: { category: PasswordCategory }): void;
   addToScore1(): void;
   addToScore2(): void;
@@ -25,6 +27,7 @@ type PasswordStore = {
 
 export const usePasswordStore = create<PasswordStore>((set, get) => ({
   passwordsName: "",
+  deserveDouble: true,
   localPasswordsList: [],
   passwordCategory: "mix",
   winner: "draw",
@@ -46,36 +49,35 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
     }
     set({ passwordsName: player.playerName });
   },
+  setDeserveDouble(val) {
+    set({ deserveDouble: val });
+  },
   setPasswordCategory(category) {
     localStorage.setItem("passwordCategory", JSON.stringify(category));
     set({ passwordCategory: category.category });
   },
   addToScore1() {
-    if (get().score1 == 4) {
-      set((state) => ({
+    if (get().score1 == 4 || (get().score1 == 3 && get().deserveDouble)) {
+      set({
         passwordsName: "",
-        score1: state.score1 + 1,
         winner: "team1",
-      }));
-    } else {
-      set((state) => ({
-        score1: state.score1 + 1,
-      }));
+      });
     }
+    set((state) => ({
+      score1: get().deserveDouble ? state.score1 + 2 : state.score1 + 1,
+    }));
     useUsersStore.getState().setTimeUp(true);
   },
   addToScore2() {
-    if (get().score2 == 4) {
-      set((state) => ({
+    if (get().score2 == 4 || (get().score2 == 3 && get().deserveDouble)) {
+      set({
         passwordsName: "",
-        score2: state.score2 + 1,
         winner: "team2",
-      }));
-    } else {
-      set((state) => ({
-        score2: state.score2 + 1,
-      }));
+      });
     }
+    set((state) => ({
+      score2: get().deserveDouble ? state.score2 + 2 : state.score2 + 1,
+    }));
     useUsersStore.getState().setTimeUp(true);
   },
   toggleTurn() {

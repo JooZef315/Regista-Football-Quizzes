@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { usePasswordStore } from "@/store/passwordStore";
@@ -15,6 +16,7 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
   const setTimerunning = useUsersStore((state) => state.setTimerunning);
 
   const winner = usePasswordStore((state) => state.winner);
+  const deserveDouble = usePasswordStore((state) => state.deserveDouble);
   const turn = usePasswordStore((state) => state.turn);
   const score1 = usePasswordStore((state) => state.score1);
   const score2 = usePasswordStore((state) => state.score2);
@@ -22,6 +24,7 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
   const addToScore1 = usePasswordStore((state) => state.addToScore1);
   const addToScore2 = usePasswordStore((state) => state.addToScore2);
   const setShowName = usePasswordStore((state) => state.setShowName);
+  const setDeserveDouble = usePasswordStore((state) => state.setDeserveDouble);
 
   // Only set the team names after hydration
   useEffect(() => {
@@ -30,21 +33,24 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
   }, [storeTeam1Name, storeTeam2Name]);
 
   const handleAddScore = async () => {
-    if (team == 1) {
-      if (turn == "team2") {
-        toast.error(`دلوقتي دور فريق ${storeTeam2Name}`);
-      } else {
-        addToScore1();
+    if (team == 1 && turn == "team1") {
+      if (deserveDouble) {
+        toast.success(`DOUBLE!! for team ${team1Name} 🎉🎉`);
       }
+      addToScore1();
+      setShowName(false);
+      setTimerunning(false);
+    } else if (team == 2 && turn == "team2") {
+      if (deserveDouble) {
+        toast.success(`DOUBLE!! for team ${team2Name} 🎉🎉`);
+      }
+      addToScore2();
+      setShowName(false);
+      setTimerunning(false);
     } else {
-      if (turn == "team1") {
-        toast.error(`دلوقتي دور فريق ${storeTeam1Name}`);
-      } else {
-        addToScore2();
-      }
+      toast.error("دلوقتي دور الفريق المنافس!");
     }
-    setShowName(false);
-    setTimerunning(false);
+    setDeserveDouble(true);
   };
 
   return (

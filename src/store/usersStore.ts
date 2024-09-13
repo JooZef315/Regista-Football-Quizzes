@@ -38,6 +38,7 @@ export const useUsersStore = create<UsersStore>((set, get) => ({
   setTimeUp(val) {
     if (val) {
       usePasswordStore.getState().toggleTurn();
+      usePasswordStore.getState().setDeserveDouble(false);
     }
     set({ timeIsUp: val });
   },

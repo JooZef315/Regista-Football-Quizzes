@@ -12,7 +12,6 @@ export default function Timer({ initialSeconds }: PropsType) {
   const timeIsUp = useUsersStore((state) => state.timeIsUp);
   const timeIsRunning = useUsersStore((state) => state.timeIsRunning);
   const setTimeUp = useUsersStore((state) => state.setTimeUp);
-  const setTimerunning = useUsersStore((state) => state.setTimerunning);
 
   useEffect(() => {
     if (timeIsRunning) {
