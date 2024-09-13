@@ -5,7 +5,7 @@ import { PasswordCategory } from "@/store/passwordStore";
 import { PasswordsItem, PasswordsList } from "@/types";
 import dbConnect from "@/utils/db";
 
-export const getPasswordList = async (
+export const getPasswordName = async (
   existedList: PasswordsList,
   category: PasswordCategory
 ) => {
@@ -24,11 +24,11 @@ export const getPasswordList = async (
   }
 
   try {
-    const passwords = await Password.aggregate<PasswordsItem>([
+    const passwordName = await Password.aggregate<PasswordsItem>([
       { $match: filter },
-      { $sample: { size: 9 } },
+      { $sample: { size: 1 } },
     ]);
-    return passwords;
+    return passwordName;
   } catch (error: any) {
     console.log(error);
   }

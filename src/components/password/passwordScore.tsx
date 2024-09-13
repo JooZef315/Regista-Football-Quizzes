@@ -12,13 +12,16 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
 
   const storeTeam1Name = useUsersStore((state) => state.team1Name);
   const storeTeam2Name = useUsersStore((state) => state.team2Name);
+  const setTimerunning = useUsersStore((state) => state.setTimerunning);
 
   const winner = usePasswordStore((state) => state.winner);
   const turn = usePasswordStore((state) => state.turn);
   const score1 = usePasswordStore((state) => state.score1);
   const score2 = usePasswordStore((state) => state.score2);
+  const showName = usePasswordStore((state) => state.showName);
   const addToScore1 = usePasswordStore((state) => state.addToScore1);
   const addToScore2 = usePasswordStore((state) => state.addToScore2);
+  const setShowName = usePasswordStore((state) => state.setShowName);
 
   // Only set the team names after hydration
   useEffect(() => {
@@ -26,7 +29,7 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
     setTeam2Name(storeTeam2Name);
   }, [storeTeam1Name, storeTeam2Name]);
 
-  const handleAddScore = () => {
+  const handleAddScore = async () => {
     if (team == 1) {
       if (turn == "team2") {
         toast.error(`دلوقتي دور فريق ${storeTeam2Name}`);
@@ -40,6 +43,8 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
         addToScore2();
       }
     }
+    setShowName(false);
+    setTimerunning(false);
   };
 
   return (
@@ -58,8 +63,9 @@ export default function PasswordScore({ team }: { team: 1 | 2 }) {
         </h2>
         <button
           type="button"
-          className={`p-3 cursor-pointer text-2xl font-bold`}
+          className={`p-3 cursor-pointer text-2xl font-bold disabled:opacity-30`}
           onClick={handleAddScore}
+          disabled={!showName}
         >
           +
         </button>

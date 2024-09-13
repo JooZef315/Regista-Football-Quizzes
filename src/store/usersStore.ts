@@ -3,6 +3,7 @@ import { usePasswordStore } from "./passwordStore";
 
 type UsersStore = {
   timeIsUp: boolean;
+  timeIsRunning: boolean;
   isSingle: boolean;
   singleName: string;
   team1Name: string;
@@ -10,11 +11,13 @@ type UsersStore = {
   setTeamsNames(teams: { team1: string; team2: string }): void;
   setSingleName(single: { single: string }): void;
   setTimeUp(val: boolean): void;
+  setTimerunning(val: boolean): void;
   resetGames(): void;
 };
 
 export const useUsersStore = create<UsersStore>((set, get) => ({
   timeIsUp: false,
+  timeIsRunning: false,
   isSingle: false,
   singleName: "user",
   team1Name: "team 1",
@@ -37,6 +40,9 @@ export const useUsersStore = create<UsersStore>((set, get) => ({
       usePasswordStore.getState().toggleTurn();
     }
     set({ timeIsUp: val });
+  },
+  setTimerunning(val) {
+    set({ timeIsRunning: val });
   },
   resetGames() {
     usePasswordStore.getState().reset();

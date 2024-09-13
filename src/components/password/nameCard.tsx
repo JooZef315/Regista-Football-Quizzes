@@ -3,38 +3,34 @@
 
 import { useGetPasswords } from "@/hooks/useGetPasswords";
 import { usePasswordStore } from "@/store/passwordStore";
-import { useEffect, useState } from "react";
+import { useUsersStore } from "@/store/usersStore";
+import { useEffect } from "react";
+import { PiPasswordDuotone } from "react-icons/pi";
 
 export default function NameCard() {
-  const list = usePasswordStore((state) => state.passwordsList);
-  const counter = usePasswordStore((state) => state.counter);
+  const player = usePasswordStore((state) => state.passwordsName);
   const passwordCategory = usePasswordStore((state) => state.passwordCategory);
-
-  const [player, setPlayer] = useState(list[counter]);
+  const score1 = usePasswordStore((state) => state.score1);
+  const score2 = usePasswordStore((state) => state.score2);
+  const showName = usePasswordStore((state) => state.showName);
 
   const getPasswords = useGetPasswords();
-
   useEffect(() => {
-    console.log(list);
-    if (list.length == 0) {
-      const getNames = async () => {
-        await getPasswords(passwordCategory);
-      };
-      getNames();
-    }
-    setPlayer(list[0]);
-  }, [list]);
-
-  useEffect(() => {
-    setPlayer(list[counter]);
-  }, [counter]);
+    console.log(player);
+    const getNames = async () => {
+      await getPasswords(passwordCategory);
+    };
+    getNames();
+  }, [score1, score2]);
 
   return (
     <div
       dir="auto"
-      className="m-3 bg-amber-500 p-7 font-semibold text-center text-5xl text-white ring-1 ring-sky-950 shadow-xl rounded-sm"
+      className={`flex justify-center items-center m-3 bg-amber-500 p-7 font-semibold text-center text-5xl text-white ring-1 ring-sky-950 shadow-xl rounded-sm transition-transform duration-700 ease-in-out ${
+        showName ? "scale-100" : "scale-95"
+      }`}
     >
-      {player && player.playerName}
+      {showName ? player : <PiPasswordDuotone size={148} />}
     </div>
   );
 }

@@ -1,16 +1,16 @@
 import { PasswordCategory, usePasswordStore } from "@/store/passwordStore";
-import { PasswordsList } from "@/types";
+import { PasswordsItem } from "@/types";
 import { toast } from "react-toastify";
 
 type FetchResult = {
-  data: PasswordsList;
+  data: [PasswordsItem];
 };
 
 export const useGetPasswords = () => {
   const localPasswordsList = usePasswordStore(
     (state) => state.localPasswordsList
   );
-  const setPasswordsList = usePasswordStore((state) => state.setPasswordsList);
+  const setPasswordsName = usePasswordStore((state) => state.setPasswordsName);
   const setPasswordCategory = usePasswordStore(
     (state) => state.setPasswordCategory
   );
@@ -34,7 +34,7 @@ export const useGetPasswords = () => {
       }
 
       const result: FetchResult = await response.json();
-      setPasswordsList(result.data);
+      setPasswordsName(result.data[0]);
     } catch (err: any) {
       toast.error(err.message);
     }
