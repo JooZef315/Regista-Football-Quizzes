@@ -65,11 +65,10 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
         winner: "team1",
       });
     }
-    const nextTurn = get().firstTurn == "team1" ? "team2" : "team1";
     set((state) => ({
-      score1: get().deserveDouble ? state.score1 + 2 : state.score1 + 1,
-      turn: nextTurn,
-      firstTurn: nextTurn,
+      score1: state.deserveDouble ? state.score1 + 2 : state.score1 + 1,
+      turn: state.firstTurn == "team1" ? "team2" : "team1",
+      firstTurn: state.firstTurn == "team1" ? "team2" : "team1",
     }));
     useUsersStore.getState().setTimeUp(true);
   },
@@ -80,11 +79,10 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
         winner: "team2",
       });
     }
-    const nextTurn = get().firstTurn == "team1" ? "team2" : "team1";
     set((state) => ({
-      score2: get().deserveDouble ? state.score2 + 2 : state.score2 + 1,
-      turn: nextTurn,
-      firstTurn: nextTurn,
+      score2: state.deserveDouble ? state.score2 + 2 : state.score2 + 1,
+      turn: state.firstTurn == "team1" ? "team2" : "team1",
+      firstTurn: state.firstTurn == "team1" ? "team2" : "team1",
     }));
     useUsersStore.getState().setTimeUp(true);
   },

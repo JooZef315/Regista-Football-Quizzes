@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { usePasswordStore } from "@/store/passwordStore";
@@ -27,6 +28,7 @@ export default function Timer({ initialSeconds }: PropsType) {
         return () => clearInterval(interval);
       } else {
         setTimeUp(true);
+        tooglePasswordTurns();
       }
     }
   }, [seconds, setTimeUp, timeIsRunning]);
@@ -35,9 +37,8 @@ export default function Timer({ initialSeconds }: PropsType) {
     if (timeIsUp) {
       setTimeUp(false);
       setSeconds(initialSeconds);
-      tooglePasswordTurns();
     }
-  }, [timeIsUp, setTimeUp, initialSeconds, tooglePasswordTurns]);
+  }, [timeIsUp, initialSeconds]);
 
   return (
     <div

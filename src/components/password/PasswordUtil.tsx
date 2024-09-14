@@ -18,6 +18,7 @@ export default function PasswordUtil() {
   const turn = usePasswordStore((state) => state.turn);
   const passwordCategory = usePasswordStore((state) => state.passwordCategory);
   const showName = usePasswordStore((state) => state.showName);
+  const deserveDouble = usePasswordStore((state) => state.deserveDouble);
   const setDeserveDouble = usePasswordStore((state) => state.setDeserveDouble);
   const toggleTurn = usePasswordStore((state) => state.toggleTurn);
   const setShowName = usePasswordStore((state) => state.setShowName);
@@ -35,17 +36,18 @@ export default function PasswordUtil() {
   }, [storeTeam1, storeTeam2]);
 
   const handleSkipPlayer = async () => {
+    const double = deserveDouble;
     setLoading(true);
     setTimeUp(true);
-    toggleTurn();
     await getPasswords(passwordCategory);
-    setDeserveDouble(true);
+    setDeserveDouble(double);
     setTimerunning(false);
     setLoading(false);
   };
 
   const handleSkipTurn = () => {
     setTimeUp(true);
+    toggleTurn();
     setShowName(true);
     setTimerunning(true);
   };
