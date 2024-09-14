@@ -1,5 +1,6 @@
 "use client";
 
+import { usePasswordStore } from "@/store/passwordStore";
 import { useUsersStore } from "@/store/usersStore";
 import { useState, useEffect } from "react";
 
@@ -12,6 +13,8 @@ export default function Timer({ initialSeconds }: PropsType) {
   const timeIsUp = useUsersStore((state) => state.timeIsUp);
   const timeIsRunning = useUsersStore((state) => state.timeIsRunning);
   const setTimeUp = useUsersStore((state) => state.setTimeUp);
+
+  const tooglePasswordTurns = usePasswordStore((state) => state.toggleTurn);
 
   useEffect(() => {
     if (timeIsRunning) {
@@ -32,8 +35,9 @@ export default function Timer({ initialSeconds }: PropsType) {
     if (timeIsUp) {
       setTimeUp(false);
       setSeconds(initialSeconds);
+      tooglePasswordTurns();
     }
-  }, [timeIsUp, setTimeUp, initialSeconds]);
+  }, [timeIsUp, setTimeUp, initialSeconds, tooglePasswordTurns]);
 
   return (
     <div

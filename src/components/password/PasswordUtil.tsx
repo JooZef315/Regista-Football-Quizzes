@@ -16,12 +16,10 @@ export default function PasswordUtil() {
   const setTimerunning = useUsersStore((state) => state.setTimerunning);
 
   const turn = usePasswordStore((state) => state.turn);
-  const deserveDouble = usePasswordStore((state) => state.deserveDouble);
   const passwordCategory = usePasswordStore((state) => state.passwordCategory);
   const showName = usePasswordStore((state) => state.showName);
   const toggleTurn = usePasswordStore((state) => state.toggleTurn);
   const setShowName = usePasswordStore((state) => state.setShowName);
-  const setDeserveDouble = usePasswordStore((state) => state.setDeserveDouble);
 
   const [team1, setTeam1] = useState("");
   const [team2, setTeam2] = useState("");
@@ -37,16 +35,13 @@ export default function PasswordUtil() {
 
   const handleSkipPlayer = async () => {
     setLoading(true);
-    await getPasswords(passwordCategory);
     setTimeUp(true);
-    toggleTurn();
+    await getPasswords(passwordCategory);
     setTimerunning(false);
-    setDeserveDouble(true);
     setLoading(false);
   };
 
   const handleSkipTurn = () => {
-    setDeserveDouble(false);
     setTimeUp(true);
     setShowName(true);
     setTimerunning(true);
@@ -77,7 +72,7 @@ export default function PasswordUtil() {
           dir="rtl"
           className="flex items-center justify-center gap-1 text-center text-white bg-cyan-600 hover:bg-cyan-700 py-1 px-4 rounded-2xl shadow-md disabled:opacity-30"
           onClick={handleSkipPlayer}
-          disabled={loading || !showName || !deserveDouble}
+          disabled={loading || !showName}
         >
           {loading ? (
             "Loading ..."

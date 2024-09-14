@@ -13,6 +13,7 @@ type PasswordStore = {
   winner: Turn | "draw";
   score1: number;
   score2: number;
+  firstTurn: Turn;
   turn: Turn;
   showName: boolean;
   setPasswordsName(names: PasswordsItem): void;
@@ -33,6 +34,7 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
   winner: "draw",
   score1: 0,
   score2: 0,
+  firstTurn: "team1",
   turn: "team1",
   showName: false,
   setPasswordsName(player) {
@@ -63,8 +65,11 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
         winner: "team1",
       });
     }
+    const nextTurn = get().firstTurn == "team1" ? "team2" : "team1";
     set((state) => ({
       score1: get().deserveDouble ? state.score1 + 2 : state.score1 + 1,
+      turn: nextTurn,
+      firstTurn: nextTurn,
     }));
     useUsersStore.getState().setTimeUp(true);
   },
@@ -75,8 +80,11 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
         winner: "team2",
       });
     }
+    const nextTurn = get().firstTurn == "team1" ? "team2" : "team1";
     set((state) => ({
       score2: get().deserveDouble ? state.score2 + 2 : state.score2 + 1,
+      turn: nextTurn,
+      firstTurn: nextTurn,
     }));
     useUsersStore.getState().setTimeUp(true);
   },
@@ -89,10 +97,12 @@ export const usePasswordStore = create<PasswordStore>((set, get) => ({
   reset() {
     set({
       passwordsName: "",
+      deserveDouble: true,
       turn: "team1",
       winner: "draw",
       score1: 0,
       score2: 0,
+      showName: false,
     });
   },
 }));
