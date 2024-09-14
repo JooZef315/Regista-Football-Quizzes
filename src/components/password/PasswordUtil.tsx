@@ -38,8 +38,8 @@ export default function PasswordUtil() {
   const handleSkipPlayer = async () => {
     const double = deserveDouble;
     setLoading(true);
-    setTimeUp(true);
     await getPasswords(passwordCategory);
+    setTimeUp(true);
     setDeserveDouble(double);
     setTimerunning(false);
     setLoading(false);
