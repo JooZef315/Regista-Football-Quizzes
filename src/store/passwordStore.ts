@@ -1,16 +1,15 @@
 import { create } from "zustand";
 import { useUsersStore } from "./usersStore";
-import { PasswordsItem } from "@/types";
+import { PasswordsItem, Turn, Winner } from "@/types";
 
 export type PasswordCategory = "محلي" | "عالمي" | "mix";
-type Turn = "team1" | "team2";
 
 type PasswordStore = {
   passwordsName: string;
   deserveDouble: boolean;
   localPasswordsList: string[];
   passwordCategory: PasswordCategory;
-  winner: Turn | "draw";
+  winner: Winner;
   score1: number;
   score2: number;
   firstTurn: Turn;

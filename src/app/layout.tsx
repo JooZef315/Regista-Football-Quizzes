@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="auto">
       <body className={`scroll-smooth ${cairo.className}`}>
-        <ToastContainer />
+        <ToastContainer rtl />
         <Navbar />
         {children}
         <Footer />

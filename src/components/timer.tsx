@@ -3,6 +3,7 @@
 
 import { usePasswordStore } from "@/store/passwordStore";
 import { useUsersStore } from "@/store/usersStore";
+import { useWhoStore } from "@/store/whoStore";
 import { useState, useEffect } from "react";
 
 type PropsType = {
@@ -14,8 +15,17 @@ export default function Timer({ initialSeconds }: PropsType) {
   const timeIsUp = useUsersStore((state) => state.timeIsUp);
   const timeIsRunning = useUsersStore((state) => state.timeIsRunning);
   const setTimeUp = useUsersStore((state) => state.setTimeUp);
+  const setTimerunning = useUsersStore((state) => state.setTimerunning);
 
   const tooglePasswordTurns = usePasswordStore((state) => state.toggleTurn);
+
+  const counter = useWhoStore((state) => state.counter);
+  const setSuspended = useWhoStore((state) => state.setSuspended);
+
+  let path = "";
+  if (typeof window !== "undefined") {
+    path = window.location.pathname;
+  }
 
   useEffect(() => {
     if (timeIsRunning) {
@@ -29,6 +39,10 @@ export default function Timer({ initialSeconds }: PropsType) {
       } else {
         setTimeUp(true);
         tooglePasswordTurns();
+        if (path == "/whoAmI" && counter < 5) {
+          setTimerunning(false);
+          setSuspended("");
+        }
       }
     }
   }, [seconds, setTimeUp, timeIsRunning]);

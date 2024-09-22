@@ -3,7 +3,6 @@
 
 import { useGetPasswords } from "@/hooks/useGetPasswords";
 import { usePasswordStore } from "@/store/passwordStore";
-import { useUsersStore } from "@/store/usersStore";
 import { useEffect } from "react";
 import { PiPasswordDuotone } from "react-icons/pi";
 

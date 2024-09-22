@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { usePasswordStore } from "./passwordStore";
+import { useWhoStore } from "./whoStore";
 
 type UsersStore = {
   timeIsUp: boolean;
@@ -46,6 +47,7 @@ export const useUsersStore = create<UsersStore>((set, get) => ({
   },
   resetGames() {
     usePasswordStore.getState().reset();
+    useWhoStore.getState().reset();
     set({ timeIsUp: true });
   },
 }));
