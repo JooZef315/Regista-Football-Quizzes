@@ -12,6 +12,7 @@ type PropsType = {
 export default function Timer({ initialSeconds }: PropsType) {
   const [seconds, setSeconds] = useState(initialSeconds);
 
+  const isSingle = useUsersStore((state) => state.isSingle);
   const timeIsUp = useUsersStore((state) => state.timeIsUp);
   const timeIsRunning = useUsersStore((state) => state.timeIsRunning);
   const setTimeUp = useUsersStore((state) => state.setTimeUp);
@@ -20,13 +21,25 @@ export default function Timer({ initialSeconds }: PropsType) {
   const tooglePasswordTurns = usePasswordStore((state) => state.toggleTurn);
 
   const counter = useWhoStore((state) => state.counter);
+  const startStriking = useWhoStore((state) => state.startStriking);
+  const suspended = useWhoStore((state) => state.suspended);
   const setSuspended = useWhoStore((state) => state.setSuspended);
+  const addStrike = useWhoStore((state) => state.addStrike);
 
   let path = "";
   if (typeof window !== "undefined") {
     path = window.location.pathname;
   }
 
+  const toggleWhoStrikesTurn = () => {
+    if (!isSingle) {
+      const turn = suspended == "team1" ? "team2" : "team1";
+      addStrike(turn);
+      setSuspended(turn);
+      setTimerunning(true);
+      setTimeUp(false);
+    }
+  };
   useEffect(() => {
     if (timeIsRunning) {
       if (seconds >= 0) {
@@ -41,7 +54,6 @@ export default function Timer({ initialSeconds }: PropsType) {
         tooglePasswordTurns();
         if (path == "/whoAmI" && counter < 5) {
           setTimerunning(false);
-          setSuspended("");
         }
       }
     }
@@ -50,9 +62,24 @@ export default function Timer({ initialSeconds }: PropsType) {
   useEffect(() => {
     if (timeIsUp) {
       setTimeUp(false);
-      setSeconds(initialSeconds);
+      if (path == "/whoAmI" && startStriking) {
+        setSeconds(30);
+        if (seconds == -1) {
+          toggleWhoStrikesTurn();
+        }
+      } else {
+        setSeconds(initialSeconds);
+      }
     }
   }, [timeIsUp, initialSeconds]);
+
+  useEffect(() => {
+    if (counter == 0) {
+      console.log("here");
+      setSeconds(0);
+      setTimerunning(false);
+    }
+  }, [counter]);
 
   return (
     <div

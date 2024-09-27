@@ -10,6 +10,7 @@ export default function WhoUtil() {
   const counter = useWhoStore((state) => state.counter);
   const suspended = useWhoStore((state) => state.suspended);
   const showNextQ = useWhoStore((state) => state.showNextQ);
+  const setSuspended = useWhoStore((state) => state.setSuspended);
 
   const timeIsUp = useUsersStore((state) => state.timeIsUp);
   const isSingle = useUsersStore((state) => state.isSingle);
@@ -31,6 +32,7 @@ export default function WhoUtil() {
   const handleStartTime = () => {
     showNextQ();
     setTimerunning(true);
+    setSuspended("");
   };
   return (
     <div className="flex flex-col justify-center items-center gap-4">

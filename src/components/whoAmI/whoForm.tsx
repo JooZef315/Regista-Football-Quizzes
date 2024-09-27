@@ -19,14 +19,17 @@ export default function WhoForm() {
   const suspended = useWhoStore((state) => state.suspended);
   const answer = useWhoStore((state) => state.answer);
   const counter = useWhoStore((state) => state.counter);
+  const startStriking = useWhoStore((state) => state.startStriking);
+
+  const setTimeUp = useUsersStore((state) => state.setTimeUp);
 
   const addScore = useWhoStore((state) => state.addScore);
   const addStrike = useWhoStore((state) => state.addStrike);
   const setSuspended = useWhoStore((state) => state.setSuspended);
+  const setStartStriking = useWhoStore((state) => state.setStartStriking);
 
   const [toPlay, setToPlay] = useState<"1" | "2">("1");
   const [userInput, setUserInput] = useState<string>("");
-  const [startStriking, setStartStriking] = useState(false);
 
   const fuse = new Fuse([answer.toLowerCase()], { includeScore: true });
 
@@ -60,6 +63,7 @@ export default function WhoForm() {
           );
         } else {
           setSuspended("team1");
+          setTimeUp(true);
           toast.error(
             "اجابة غلط، دلوقتي الفريق المنافس بس له الحق انه يجاوب على الclue الجديد"
           );
@@ -74,6 +78,7 @@ export default function WhoForm() {
           );
         } else {
           setSuspended("team2");
+          setTimeUp(true);
           toast.error(
             "اجابة غلط، دلوقتي الفريق المنافس بس له الحق انه يجاوب على الclue الجديد"
           );

@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function CluesList() {
+  const isSingle = useUsersStore((state) => state.isSingle);
   const clues = useWhoStore((state) => state.clues);
   const score = useWhoStore((state) => state.score);
   const score1 = useWhoStore((state) => state.score1);
@@ -30,7 +31,7 @@ export default function CluesList() {
     const getClues = async () => {
       await getWho();
     };
-    if (strike == 3) {
+    if (strike == 3 && isSingle) {
       toast.error("محاولاتك خلصت، هتبدأ مع لاعب جديد");
       getClues();
     }

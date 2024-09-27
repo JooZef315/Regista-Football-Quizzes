@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { useUsersStore } from "./usersStore";
-import { Clue, PlayersType, Turn, WhoItem, Winner } from "@/types";
+import { Clue, PlayersType, WhoItem, Winner } from "@/types";
 
 type WhoStore = {
   answer: string;
@@ -9,6 +9,7 @@ type WhoStore = {
   counter: number;
   suspended: PlayersType | "";
   nextTic: boolean;
+  startStriking: boolean;
   score: number;
   score1: number;
   score2: number;
@@ -21,6 +22,8 @@ type WhoStore = {
   addScore(type: PlayersType): void;
   addStrike(type: PlayersType): void;
   setSuspended(team: PlayersType): void;
+  setStartStriking(value: boolean): void;
+  toggleStrikesTurn(): void;
   reset(): void;
 };
 
@@ -31,6 +34,7 @@ export const useWhoStore = create<WhoStore>((set, get) => ({
   counter: 0,
   suspended: "",
   nextTic: false,
+  startStriking: false,
   score: 0,
   score1: 0,
   score2: 0,
@@ -74,6 +78,7 @@ export const useWhoStore = create<WhoStore>((set, get) => ({
       strike1: 0,
       strike2: 0,
       suspended: "",
+      startStriking: false,
     });
     useUsersStore.getState().setTimeUp(true);
   },
@@ -190,6 +195,19 @@ export const useWhoStore = create<WhoStore>((set, get) => ({
         });
       }
     }
+  },
+  toggleStrikesTurn() {
+    if (!useUsersStore.getState().isSingle) {
+      const turn = get().suspended == "team1" ? "team2" : "team1";
+      set((state) => ({
+        suspended: state.suspended == "team1" ? "team2" : "team1",
+      }));
+      get().addStrike(turn);
+      useUsersStore.getState().setTimeUp(false);
+    }
+  },
+  setStartStriking(value) {
+    set({ startStriking: value });
   },
   reset() {
     set({
