@@ -30,7 +30,10 @@ type WhoStore = {
 export const useWhoStore = create<WhoStore>((set, get) => ({
   answer: "",
   clues: [],
-  localWhosList: [],
+  localWhosList:
+    typeof localStorage !== "undefined"
+      ? JSON.parse(localStorage.getItem("whoList") || "[]")
+      : [],
   counter: 0,
   suspended: "",
   nextTic: false,

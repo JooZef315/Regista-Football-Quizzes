@@ -28,7 +28,10 @@ type PasswordStore = {
 export const usePasswordStore = create<PasswordStore>((set, get) => ({
   passwordsName: "",
   deserveDouble: true,
-  localPasswordsList: [],
+  localPasswordsList:
+    typeof localStorage !== "undefined"
+      ? JSON.parse(localStorage.getItem("passwordsList") || "[]")
+      : [],
   passwordCategory: "mix",
   winner: "draw",
   score1: 0,

@@ -4,18 +4,23 @@ import Password from "@/models/passwordModel";
 import { PasswordCategory } from "@/store/passwordStore";
 import { PasswordsItem, PasswordsList } from "@/types";
 import dbConnect from "@/utils/db";
+import mongoose from "mongoose";
 
 export const getPasswordName = async (
-  existedList: PasswordsList,
+  existedList: string[],
   category: PasswordCategory
 ) => {
   await dbConnect();
   const filter: any = {};
-  const existedIds = existedList.map((item) => item._id);
 
+  const existedIds: mongoose.Types.ObjectId[] = Array.from(
+    new Set(existedList)
+  ).map((id) => {
+    return new mongoose.Types.ObjectId(id);
+  });
   const countPasswords = await Password.countDocuments();
 
-  if (existedIds.length && existedIds.length < countPasswords - 9) {
+  if (existedIds.length && existedIds.length < countPasswords - 1) {
     filter._id = { $nin: existedIds };
   }
 

@@ -1,6 +1,5 @@
 import { getPasswordName } from "@/services/getPasswordName";
 import { PasswordCategory } from "@/store/passwordStore";
-import { PasswordsList } from "@/types";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -8,7 +7,7 @@ export async function POST(request: Request) {
     existedList,
     category,
   }: {
-    existedList: PasswordsList;
+    existedList: string[];
     category: PasswordCategory;
   } = await request.json();
   const passwords = await getPasswordName(existedList, category);

@@ -75,7 +75,6 @@ export default function Timer({ initialSeconds }: PropsType) {
 
   useEffect(() => {
     if (counter == 0) {
-      console.log("here");
       setSeconds(0);
       setTimerunning(false);
     }

@@ -26,7 +26,6 @@ export const useGetWho = () => {
         toast.error("Network response was not ok");
         return;
       }
-
       const result: FetchResult = await response.json();
       setQ(result.data[0]);
     } catch (err: any) {

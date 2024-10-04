@@ -15,7 +15,6 @@ export default function NameCard() {
 
   const getPasswords = useGetPasswords();
   useEffect(() => {
-    console.log(player);
     const getNames = async () => {
       await getPasswords(passwordCategory);
     };
