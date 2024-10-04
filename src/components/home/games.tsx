@@ -1,6 +1,7 @@
 import { AiOutlineTable } from "react-icons/ai";
 import { MdQuestionMark } from "react-icons/md";
 import { PiPasswordDuotone } from "react-icons/pi";
+import { MdImageSearch } from "react-icons/md";
 import Tabs from "./tabs";
 import { Suspense } from "react";
 import LoadingSpinner from "../UI/loadingSpinner";
@@ -50,6 +51,19 @@ export default function Games() {
       ),
       link: "/password/info",
       icon: <PiPasswordDuotone className="w-1/3 h-1/3" />,
+    },
+    {
+      label: "مين X الصورة",
+      content: (
+        <p className="font-semibold text-wrap text-start leading-8">
+          في اللعبة هتشوف صورة لفريق، كل فريق مطلوب يقول اسم لاعب موجود في
+          الصورة بالتناوب، بحيث مفيش فرد يجاوب مرتين ورا بعض، واللاعب اللي يجاول
+          <br /> غلط اكتر من مرة يطلع برا، الفريق اللي يقدر يقول اكتر اسامي هو
+          اللي يكسب! الفريق اللي يكسب في صورتين هو اللي يكسب الدور.
+        </p>
+      ),
+      link: "/squads/info",
+      icon: <MdImageSearch className="w-1/3 h-1/3" />,
     },
   ];
   return (

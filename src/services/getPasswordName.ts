@@ -2,7 +2,7 @@
 
 import Password from "@/models/passwordModel";
 import { PasswordCategory } from "@/store/passwordStore";
-import { PasswordsItem, PasswordsList } from "@/types";
+import { PasswordsItem } from "@/types";
 import dbConnect from "@/utils/db";
 import mongoose from "mongoose";
 
